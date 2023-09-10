@@ -8,14 +8,15 @@ const averageAudioFeatures = informationData.averageAudioFeatures;
 console.log(averageAudioFeatures[0]);
 
 let cardIndex = 0;
-let timeoutId = null;
 
 function showCard(index) {
     cardEls.forEach((card) => {
         card.style.display = "none";
+        card.classList.remove("swing-in-bottom-bck-general");
     });
 
     cardEls[index].style.display = "flex";
+    cardEls[index].classList.add("swing-in-bottom-bck-general");
 }
 
 function nextSlide() {

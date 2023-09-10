@@ -187,7 +187,7 @@ app.get("/information", async (req, res) => {
 
         const topQueryString = querystring.stringify({
             time_range: "medium_term",
-            limit: 50
+            limit: 100
         });
 
         const topTracksResponse = await axios.get(generalUserEndpoint + "/top/tracks?" + topQueryString, {
@@ -271,7 +271,7 @@ app.get("/information", async (req, res) => {
          console.log(artistIdsArray.slice(0, 3).join(","));
          console.log(trackIdsArray.slice(0, 2).join(","));
 
-         const songLimit = 50;
+         const songLimit = 100;
 
          const recommendationsQueryString = querystring.stringify({
             limit: songLimit,
@@ -296,6 +296,8 @@ app.get("/information", async (req, res) => {
                 "Authorization": "Bearer " + access_token
             }
          });
+
+         console.log(recommendationsResponse.data);
 
          const recommendedTracks = recommendationsResponse.data.tracks;
          const recommendedTracksInfo = recommendedTracks.map((track) => ({
@@ -324,6 +326,10 @@ app.get("/information", async (req, res) => {
             res.status(500).send("An error occurred while requesting for and using user and track information.")
     }
 }});
+
+app.get("/play", async (req, res) => {
+    
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

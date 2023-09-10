@@ -56,15 +56,15 @@
             <p class="typed" id="desc-think">i think you'll like these tracks!</p>
         </div>
     </main>
-    <div class="carousel-container swing-in-bottom-bck">
+    <div class="carousel-container swing-in-bottom-bck-container">
         <button class="carousel-button carousel-prev-button">&lt;</button>
         <button class="carousel-button carousel-next-button">&gt;</button>
         <% recommendedTracksInfo.forEach(function(track) { %>
         <div class="card carousel-card">
             <img src="<%= track.cover %>" alt="track cover">
             <div class="card-body">
-            <a class="card-title" href="<%= track.link %>" target="_blank"><%= track.name %></a>
-            <p class="card-text"><%= track.artist %></p>
+                <a class="card-title" href="<%= track.link %>" target="_blank"><%= track.name %></a>
+                <p class="card-text"><%= track.artist %></p>
             </div>
         </div>
         <% }); %>
