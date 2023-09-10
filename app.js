@@ -11,7 +11,7 @@ require("dotenv").config()
 // to run with nodemon, npx nodemon app.js is called in the terminal
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 // establishing the port the server will listen on
 
 app.set("view engine", "ejs");
@@ -328,7 +328,7 @@ app.get("/information", async (req, res) => {
 }});
 
 app.get("/play", async (req, res) => {
-    
+
 })
 
 app.listen(port, () => {
