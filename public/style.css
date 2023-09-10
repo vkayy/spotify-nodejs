@@ -98,11 +98,11 @@ main #login-button:hover {
 }
 
 #description #desc-wait {
-    animation-delay: 4s;
+    animation-delay: 3s;
 }
 
 #description #desc-think {
-    animation-delay: 6s;
+    animation-delay: 5s;
 }
 
 .card {
@@ -214,7 +214,7 @@ main #login-button:hover {
 .swing-in-bottom-bck {
 	-webkit-animation: swing-in-bottom-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 	        animation: swing-in-bottom-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
-            animation-delay: 9s;
+            animation-delay: 8s;
 }
 
 .text-focus-in {
