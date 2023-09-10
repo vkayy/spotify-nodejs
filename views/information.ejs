@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spotify with vkay</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/27a73e1ef6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1 id="logo">vkay.dev + <i class="fa-brands fa-spotify" style="color: #f3f3f3;"></i></h1>
+    </header>
+    <main class="information">
+        <div class="profile-picture text-focus-in">
+            <img src="<%=userImage%>" alt="user profile picture">
+        </div>
+        <div class="title">
+            <h1 class="text-focus-in">interesting taste, <%=displayName%>...</h1>
+        </div>
+    <main>
+        <div class="stats">
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+            <div class="stat-card">
+                <h3></h3>
+            </div>
+        </div>
+        <div id="description">
+            <p class="typed" id="desc-wait">but anyway, one second.</p>
+            <p class="typed" id="desc-think">i think you'll like these tracks!</p>
+        </div>
+    </main>
+    <div class="carousel-container swing-in-bottom-bck">
+        <button class="carousel-button carousel-prev-button">&lt;</button>
+        <button class="carousel-button carousel-next-button">&gt;</button>
+        <% recommendedTracksInfo.forEach(function(track) { %>
+        <div class="card carousel-card">
+            <img src="<%= track.cover %>" alt="track cover">
+            <div class="card-body">
+            <a class="card-title" href="<%= track.link %>" target="_blank"><%= track.name %></a>
+            <p class="card-text"><%= track.artist %></p>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+
+    </main>
+    <script>
+        var informationData = {
+            userID: "<%= userID %>",
+            displayName: "<%= displayName %>",
+            userImage: "<%= userImage %>",
+            trackIdsArray: "<%= trackIdsArray %>",
+            artistIdsArray: "<%= artistIdsArray %>",
+            trackNamesArray: "<%= trackNamesArray %>",
+            artistNamesArray: "<%= artistNamesArray %>",
+            averageAudioFeatures: "<%= averageAudioFeatures %>",
+            averageTrackPopularity: "<%= averageTrackPopularity %>",
+            averageArtistPopularity: "<%= averageArtistPopularity %>",
+            recommendedTracksInfo: `<%= JSON.stringify(recommendedTracksInfo) %>`,
+            songLimit: "<%= songLimit %>"
+        }
+    </script>
+    <script src="information.js"></script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;700&display=swap');
+
+:root {
+    --primary-color: #222;
+    --secondary-color: #f3f3f3;
+    --card-color: #1f1f1f;
+    --shadow-color: #111111;
+}
+
+* {
+    box-sizing: border-box;
+    color: var(--secondary-color);
+    font-family: 'Readex Pro', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header h1, header nav h1 {
+    color: var(--secondary-color);
+    margin-top: 50px;
+    margin-bottom: 0;
+    padding: 20px;
+    transition: all 1s ease;
+}
+
+/* header h1:hover {
+    box-shadow:  20px 20px 40px #2a2a2a,
+             -20px -20px 40px #1a1a1a;
+} */
+
+main {
+    color:var(--secondary-color);
+    text-align: center;
+    padding: 0 0 20px;
+}
+
+.information {
+    padding: 40px 0;
+}
+
+main .profile-picture img {
+    border: 2px solid var(--secondary-color);
+    border-radius: 50%;
+    width: 300px;
+    box-shadow: 0 5px 10px var(--shadow-color);
+    margin-bottom: 40px;
+}
+
+main .title {
+    text-shadow: 0 5px 10px var(--shadow-color);
+    width: 100%;
+    margin-top: 20px;
+}
+
+.information .typed {
+    margin: 20px auto;
+}
+
+main #login-button {
+    display: block;
+    text-decoration: none;
+    width: 20vw;
+    max-width: 300px;
+    appearance: button;
+    margin: auto;
+    padding: 20px 30px;
+    margin-top: 10vh;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #242424, #1f1f1f);
+    box-shadow:  10px 20px 40px #0e0e0e,
+             -10px -10px 40px #363636;
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: all .3s ease;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: none;
+}
+
+main #login-button:hover {
+    box-shadow: 0 5px 10px var(--shadow-color);
+}
+
+#description {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    font-weight: 300;
+    padding: 20px;
+}
+
+#description #desc-wait {
+    animation-delay: 4s;
+}
+
+#description #desc-think {
+    animation-delay: 6s;
+}
+
+.card {
+    background-color: var(--card-color);
+    display: block;
+    color: var(--secondary-color);
+    border-radius: 10px;
+    margin: 100px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+  
+.card:hover {
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+  
+.card img {
+    max-width: 50%;
+    height: auto;
+    margin: 30px 10px;
+    display: block;
+}
+  
+.card-body {
+    padding: 20px;
+}
+  
+.card-title {
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: var(--secondary-color);
+    display: block;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin: 0 auto;
+}
+  
+.card-title:hover {
+    text-decoration: underline;
+}
+  
+.card-text {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.carousel-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.carousel-card {
+    width: 100%;
+    max-width: 1000px;
+    display: none;
+    margin: 30px auto;
+    padding: 50px;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 5px 10px var(--shadow-color);
+}
+
+.carousel-card:hover {
+    box-shadow: 0 5px 10px var(--shadow-color);
+}
+
+.carousel-button {
+    background-color: var(--card-color);
+    display: inline-block;
+    text-decoration: none;
+    width: 10vw;
+    max-width: 300px;
+    appearance: button;
+    margin: 20px 10px;
+    padding: 10px;
+    border-radius: 50%;
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: all .3s ease;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    box-shadow: 0 5px 10px var(--shadow-color);
+}
+
+.carousel-button:hover {
+    transform: scale(1.1);
+}
+
+
+.carousel-button:active {
+    transform: translatey(5px);
+    box-shadow: none;
+}
+
+.typed {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    border-right: 2px solid transparent;
+    animation: typing 2s ease forwards;
+}
+
+.swing-in-bottom-bck {
+	-webkit-animation: swing-in-bottom-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+	        animation: swing-in-bottom-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+            animation-delay: 9s;
+}
+
+.text-focus-in {
+	-webkit-animation: text-focus-in .3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: text-focus-in .3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+            animation-delay: 1s;
+}
+
+@keyframes typing {
+    from {width: 0;}
+    to {width: 100%;}
+}
+
+@-webkit-keyframes text-focus-in {
+    0% {
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+}
+@keyframes text-focus-in {
+    0% {
+      -webkit-filter: blur(12px);
+              filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-filter: blur(0px);
+              filter: blur(0px);
+      opacity: 1;
+    }
+}
+  
+  
+@-webkit-keyframes swing-in-bottom-bck {
+    0% {
+      -webkit-transform: rotateX(-70deg);
+              transform: rotateX(-70deg);
+      -webkit-transform-origin: bottom;
+              transform-origin: bottom;
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: rotateX(0);
+              transform: rotateX(0);
+      -webkit-transform-origin: bottom;
+              transform-origin: bottom;
+      opacity: 1;
+    }
+}
+
+@keyframes swing-in-bottom-bck {
+    0% {
+      -webkit-transform: rotateX(-70deg);
+              transform: rotateX(-70deg);
+      -webkit-transform-origin: bottom;
+              transform-origin: bottom;
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: rotateX(0);
+              transform: rotateX(0);
+      -webkit-transform-origin: bottom;
+              transform-origin: bottom;
+      opacity: 1;
+    }
+}
+  
+
+@media only screen and (max-width: 600px) {
+
+    header h1 {
+        margin-top: 30px;
+        margin-bottom: 0;
+        padding: 0 20px;
+    }
+
+    main .profile-picture img {
+        width: 200px;
+        margin-bottom: 30px;
+    }
+
+    main .title {
+        width: 100%;
+        padding: auto 10px;
+    }
+
+    main .title h1 {
+        width: 100%;
+    }
+
+    main a {
+        width: 30vw;
+    }
+
+    .carousel-card {
+        width: 100%;
+        margin: 15px auto;
+        padding: 5px;
+    }
+    
+    .carousel-button {
+        width: 100px;
+        margin: 15px 10px;
+    }
+    
+}
