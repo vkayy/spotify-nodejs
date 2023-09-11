@@ -247,7 +247,7 @@ footer p, footer h4 {
 .vibrate-3 {
 	-webkit-animation: vibrate-3 0.5s linear infinite both;
 	        animation: vibrate-3 0.5s linear infinite both;
-            animation-delay: 3s;
+            animation-delay: 2s;
 }
 
 @keyframes typing {
