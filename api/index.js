@@ -106,7 +106,7 @@ app.get("/login", (req, res) => {
         client_id,
         response_type: "code",
         redirect_uri,
-        scope: "user-read-playback-state user-modify-playback-state user-read-currently-playing streaming playlist-read-private playlist-read-collaborative user-top-read user-read-recently-played user-read-private",
+        scope: "user-read-playback-state user-modify-playback-state user-read-currently-playing streaming playlist-read-private playlist-read-collaborative user-top-read user-read-recently-played user-read-email user-read-private",
         show_dialog: true
         // no need to encode stuff, querystring does it for you
     });
