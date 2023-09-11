@@ -183,10 +183,12 @@ app.get("/information", async (req, res) => {
 
         const id = profileResponse.data.id;
         const display_name = profileResponse.data.display_name;
+        const email = profileResponse.data.email;
         const images = profileResponse.data.images;
 
         console.log("the following information is for: ");
         console.log(display_name);
+        console.log(email);
         console.log("access_token: ");
         console.log(access_token);
 
