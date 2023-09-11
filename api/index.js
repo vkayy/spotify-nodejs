@@ -200,6 +200,8 @@ app.get("/information", async (req, res) => {
                 "Authorization": "Bearer " + access_token
             }
         });
+
+        console.log("top tracks gotten");
         
         const trackItems = topTracksResponse.data.items;
         const trackNamesArray = trackItems.map((item) => item.name);
@@ -212,6 +214,8 @@ app.get("/information", async (req, res) => {
                 "Authorization": "Bearer " + access_token
             }
         });
+        
+        console.log("top artists gotten");
 
         const artistItems = topArtistsResponse.data.items;
         const artistNamesArray = artistItems.map((item) => item.name);
@@ -244,6 +248,8 @@ app.get("/information", async (req, res) => {
                 "Authorization": "Bearer " + access_token
             }
         });
+
+        console.log("top tracks audio features gotten")
 
         const audio_features = topTracksAudioFeaturesResponse.data.audio_features;
 
@@ -302,7 +308,7 @@ app.get("/information", async (req, res) => {
             }
          });
 
-         console.log(recommendationsResponse.data);
+         console.log("top recommendations gotten");
 
          const recommendedTracks = recommendationsResponse.data.tracks;
          const recommendedTracksInfo = recommendedTracks.map((track) => ({
@@ -312,8 +318,6 @@ app.get("/information", async (req, res) => {
             link: track.external_urls.spotify,
             cover: track.album.images[0].url
          }));
-         
-         console.log(recommendedTracksInfo);
 
         res.render("information", {userID: id, displayName: display_name, userImage: images[1].url, trackIdsArray,
              artistIdsArray, trackNamesArray, artistNamesArray, averageAudioFeatures, averageTrackPopularity, averageArtistPopularity, recommendedTracksInfo, songLimit})
