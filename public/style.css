@@ -40,6 +40,7 @@ main {
     color:var(--secondary-color);
     text-align: center;
     padding: 0 0 20px;
+    margin: 0 auto;
 }
 
 .information {
@@ -57,7 +58,7 @@ main .profile-picture img {
 main .title {
     text-shadow: 0 5px 10px var(--shadow-color);
     width: 100%;
-    margin: 20px;
+    margin-top: 20px;
 }
 
 .information .typed {
