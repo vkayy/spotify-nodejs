@@ -185,6 +185,11 @@ app.get("/information", async (req, res) => {
         const display_name = profileResponse.data.display_name;
         const images = profileResponse.data.images;
 
+        console.log("the following information is for: ");
+        console.log(display_name);
+        console.log("access_token: ");
+        console.log(access_token);
+
         const topQueryString = querystring.stringify({
             time_range: "medium_term",
             limit: 100
