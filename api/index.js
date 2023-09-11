@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 // establishing the port the server will listen on
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "..", "views"));
 // set the view engine to ejs
 // set the views folder to the relative path of the views folder
 
