@@ -225,7 +225,6 @@ footer p, footer h4 {
     width: 0;
     border-right: 2px solid transparent;
     animation: typing 2s ease forwards;
-    animation-delay: 1s;
 }
 
 .typed-delay {
@@ -234,6 +233,7 @@ footer p, footer h4 {
     width: 0;
     border-right: 2px solid transparent;
     animation: typing 2s ease forwards;
+    animation-delay: .5s;
 }
 
 .swing-in-bottom-bck-container {
