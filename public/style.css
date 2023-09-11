@@ -57,7 +57,7 @@ main .profile-picture img {
 main .title {
     text-shadow: 0 5px 10px var(--shadow-color);
     width: 100%;
-    margin-top: 20px;
+    margin: 20px;
 }
 
 .information .typed {
