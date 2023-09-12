@@ -68,6 +68,11 @@ main .title h1 {
     overflow-wrap: break-word;
 }
 
+main .intro {
+    margin: 0 20px;
+    overflow-wrap: break-word;
+}
+
 .information .typed {
     margin: 20px auto;
 }
