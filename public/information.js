@@ -46,13 +46,9 @@ sliderContainerEl.addEventListener("touchstart", (e) => {
     startDrag(e.touches[0].clientX);
 });
 
-
-
 sliderContainerEl.addEventListener("mouseenter", () => {
     sliderContainerEl.style.cursor = "grab";
 });
-
-
 
 sliderContainerEl.addEventListener("mouseup", () => {
     if (pressed) {
@@ -69,19 +65,19 @@ sliderContainerEl.addEventListener("touchend", () => {
 sliderContainerEl.addEventListener("mousemove", (e) => {
     if (!pressed) return;
     e.preventDefault();
-})
+});
 
 sliderContainerEl.addEventListener("touchmove", (e) => {
     if (!pressed) return;
     e.preventDefault();
-})
+});
 
 
 function slideCarousel(clientX) {
     x = clientX;
     statsSliderEl.style.left = `${x - startX}px`
     checkBoundary();
-}
+};
 
 function startDrag(initialX) {
     pressed = true;
