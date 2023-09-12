@@ -3,6 +3,7 @@ const axios = require("axios");
 const querystring = require("querystring");
 const path = require("path");
 const ejs = require("ejs");
+const fs = require("fs");
 require("dotenv").config()
 // importing external modules
 
@@ -27,6 +28,8 @@ const redirect_uri = process.env.REDIRECT_URI;
 let access_token = "";
 let access_token_expiry = null;
 let refresh_token = "";
+let id = "";
+let recommendedTracksUris = [];
 
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 // the authorization endpoint
@@ -60,15 +63,13 @@ async function refreshAccessToken(res) {
         console.error("Error requesting for refreshed access token: ", error.message);
         // console error for dev information
 
-        if (error.response && error.response.data && error.response.data.error) {
-            const accessTokenError = error.response.data.error;
-            const statusCode = error.response.status;
-            // if all error data is known, assign for use in error response
+        const errorExplanation = "there was an issue while refreshing your access token. :("
 
-            res.status(statusCode).json({error: accessTokenError});
-            // give more specific error response
+        if (error.response && error.response.data && error.response.data.error) {
+
+            res.render("error", {error: error.response.data.error, errorMessage: error.message, statusCode: error.response.status, errorExplanation})
         } else {
-            res.status(500).send("An error occurred while refreshing the access token.")
+            res.render("error", {errorExplanation})
             // default to this response if error not known
         }
     }
@@ -76,6 +77,7 @@ async function refreshAccessToken(res) {
 
 app.use(express.static("public"));
 // serving the static files in the public folder
+app.use(express.static("images"));
 
 app.use((req, res, next) => {
     if (!access_token) {
@@ -91,6 +93,7 @@ app.use((req, res, next) => {
         const currentTime = Math.floor(Date.now() / 1000)
         if (currentTime >= access_token_expiry) {
             refreshAccessToken(res);
+            res.redirect("/information");
         }
         next();
     }
@@ -106,8 +109,9 @@ app.get("/login", (req, res) => {
         client_id,
         response_type: "code",
         redirect_uri,
-        scope: "user-read-playback-state user-modify-playback-state user-read-currently-playing streaming playlist-read-private playlist-read-collaborative user-top-read user-read-recently-played user-read-email user-read-private",
-        show_dialog: true
+        scope: "ugc-image-upload playlist-modify-public playlist-modify-private user-read-playback-state user-modify-playback-state user-read-currently-playing streaming playlist-read-private playlist-read-collaborative user-top-read user-read-recently-played user-read-email user-read-private",
+        show_dialog: false,
+        source: "login"
         // no need to encode stuff, querystring does it for you
     });
 
@@ -121,7 +125,7 @@ app.get("/callback", async (req, res) => {
     // callback route handler (after auth)
     // asynchronous as post request must occur for access token
 
-    const {code} = req.query;
+    const {code, source} = req.query;
     // gets query from request (url) and extracts the value associated with "code"
     // code isnt an object, but extracts the value of the code parameter from the object assigned
 
@@ -152,20 +156,16 @@ app.get("/callback", async (req, res) => {
         res.redirect("/information");
         // redirect to information path
     } catch (error) {
-        // if there is an error during the try block, execute catch block
         console.error("Error requesting for access token: ", error.message);
-        // console error for dev information
+
+        const errorExplanation = "there was an issue while getting your access token. :("
 
         if (error.response && error.response.data && error.response.data.error) {
-            const accessTokenError = error.response.data.error;
-            const statusCode = error.response.status;
-            // if all error data is known, assign for use in error response
+            
 
-            res.status(statusCode).json({error: accessTokenError});
-            // give more specific error response
+            res.render("error", {error: error.response.data.error, errorMessage: error.message, statusCode: error.response.status, errorExplanation})
         } else {
-            res.status(500).send("An error occurred while requesting for access token.")
-            // default to this response if error not known
+            res.render("error", {errorExplanation})
         }
     };
 });
@@ -181,7 +181,7 @@ app.get("/information", async (req, res) => {
             // options is an object including the headers object 
         });
 
-        const id = profileResponse.data.id;
+        id = profileResponse.data.id;
         const display_name = profileResponse.data.display_name;
         const email = profileResponse.data.email;
         const images = profileResponse.data.images;
@@ -234,7 +234,6 @@ app.get("/information", async (req, res) => {
         // calculating average artist popularity
 
         let averageTrackPopularity = 0;
-
         trackItems.forEach((item) => {
             averageTrackPopularity += item.popularity;
         });
@@ -313,6 +312,7 @@ app.get("/information", async (req, res) => {
          console.log("top recommendations gotten");
 
          const recommendedTracks = recommendationsResponse.data.tracks;
+         recommendedTracksUris = recommendedTracks.map((track) => track.uri);
          const recommendedTracksInfo = recommendedTracks.map((track) => ({
             id: track.id,
             name: track.name,
@@ -325,18 +325,127 @@ app.get("/information", async (req, res) => {
              artistIdsArray, trackNamesArray, artistNamesArray, averageAudioFeatures, averageTrackPopularity, averageArtistPopularity, recommendedTracksInfo, songLimit})
         // rendering the ejs template with the corresponding values
     } catch (error) {
-        console.error("Error occurred while requesting for and using user and track information: ", error.message);
+        console.error("Error occurred while requesting for and analysing user and track information: ", error.message);
+
+        if (error.response.status === 403) {
+            const errorExplanation = "there was an issue while authenticating you. :("
+            res.render("error", {error: error.response.data.error, errorMessage: error.message, statusCode: error.response.status, errorExplanation})
+        } else {
+            console.error("Error occurred while requesting for and analysing user and track information: ", error.message);
+            const errorExplanation = "there was an issue while analysing your info. :("
+
+            if (error.response && error.response.data && error.response.data.error) {
+                res.render("error", {error: error.response.data.error, errorMessage: error.message, statusCode: error.response.status, errorExplanation})
+            } else {
+                res.render("error", {statusCode: 500, errorExplanation})
+            }
+        }
+    }
+        
+});
+
+app.get("/create-playlist", async (req, res) => {
+    try {
+        const createData = ({
+            name: "recommended for you!",
+            description: "personalised by vkay"
+        });
+
+        const playlistCreateResponse = await axios.post(`https://api.spotify.com/v1/users/${id}/playlists`, createData, {
+            headers: {
+                "Authorization": "Bearer " + access_token,
+                "Content-Type": "application/json"
+            }
+        });
+        const playlist_id = playlistCreateResponse.data.id;
+
+        console.log(recommendedTracksUris);
+
+        let coversBase64 = [];
+
+        const coversPath = path.join(__dirname, "..", "images", "covers");
+        console.log("here is covers path");
+        console.log(coversPath)
+
+        fs.readdir(coversPath, async (err, files) => {
+            try {
+                if (err) {
+                    console.error("Error reading covers directory: ", err);
+                    return;
+                };
+                console.log("made it past the if statement")
+                let i = 0;
+                files.forEach((file) => {
+                    const filePath = path.join(coversPath, file)
+                    console.log(filePath)
+                    const fileBuffer = fs.readFileSync(filePath);
+                    const base64fileBuffer = fileBuffer.toString("base64");
+                    coversBase64[i] = base64fileBuffer;
+                    i++;
+                });
+    
+                console.log("made it past the fs.readdir, here is coversbase64")
+    
+                console.log(coversBase64);
+    
+                const randomImageNumber = Math.floor(Math.random() * coversBase64.length);
+                console.log("random image number: ");
+                console.log(randomImageNumber)
+                console.log(coversBase64.length)
+    
+                console.log("made it past the random number generator")
+
+                console.log(coversBase64[randomImageNumber])
+    
+                const playlistCoverResponse = await axios.put(`https://api.spotify.com/v1/playlists/${playlist_id}/images`, coversBase64[randomImageNumber], {
+                    headers: {
+                        "Authorization": "Bearer " + access_token,
+                        "Content-Type": "image/jpeg"
+                    }
+                });
+    
+                console.log("made it past the image mod")
+    
+    
+                const addData = {
+                    uris: recommendedTracksUris
+                };
+    
+                const playlistAddResponse = await axios.post(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, addData, {
+                    headers: {
+                        "Authorization": "Bearer " + access_token,
+                        "Content-Type": "application/json"
+                    }
+                });
+                res.render("done");
+            } catch (error) {
+                console.error("Error occurred while creating playlist in file-reading phase: ", error.message);
+                const errorExplanation = "there was an issue while making your playlist. :("
+
+                if (error.response && error.response.data && error.response.data.error) {
+                    res.render("error", {error: error.response.data.error, errorMessage: error.message, statusCode: error.response.status, errorExplanation})
+                } else {
+                    res.render("error", {statusCode: 500, errorExplanation})
+                }
+            }
+        });
+
+
+    } catch (error) {
+        console.error("Error occurred while creating playlist in creation phase: ", error.message);
+        const errorExplanation = "there was an issue while making your playlist. :("
 
         if (error.response && error.response.data && error.response.data.error) {
-            const userInfoError = error.response.data.error;
-            const statusCode = error.response.status;
-            // if all error data is known, assign for use in error response
-
-            res.status(statusCode).json({error: userInfoError});
+            res.render("error", {error: error.response.data.error, errorMessage: error.message, statusCode, errorExplanation})
         } else {
-            res.status(500).send("An error occurred while requesting for and using user and track information.")
+            res.render("error", {statusCode: 500, errorExplanation})
+        }
     }
-}});
+}) 
+
+app.get("/done", (req, res) => {
+    res.render("done");
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

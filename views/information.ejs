@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>spotify with vkay</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/27a73e1ef6.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <h1 id="logo">vkay.dev + <i class="fa-brands fa-spotify" style="color: #f3f3f3;"></i></h1>
+        <h1 id="logo">vkay.dev + <i class="fa-brands fa-spotify" style="color: #f3f3f3"></i></h1>
     </header>
     <main class="information">
         <div class="profile-picture text-focus-in">
@@ -18,58 +19,246 @@
         <div class="title">
             <h1 class="text-focus-in">well, <%=displayName%>, interesting taste...</h1>
         </div>
-    <main>
-        <div class="stats">
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
-            </div>
-            <div class="stat-card">
-                <h3></h3>
+        <div class="stats-section">
+            <p class="intro text-focus-in-delay">first off, let's dive into the music you listen to. swipe along!</p>
+            <div class="slider-container slide-in-bottom">
+                <div class="stats-slider">
+                    <% for (const feature in averageAudioFeatures) { %>
+                        <% if (feature != "key") { %>
+                            <div class="stat-card" id="<%= feature %>">
+                                <% if (feature === "duration_ms") { %>
+                                    <div class="stat-card-text">
+                                        <h3>duration</h3>
+                                        <div class="stat-card-body">
+                                            <%= Math.floor(Math.floor(averageAudioFeatures[feature] / 1000) / 60) %>
+                                            minutes and
+                                            <%= Math.floor(averageAudioFeatures[feature] / 1000) % 60 %>
+                                            seconds
+                                        </div>
+                                    </div>
+                                    <p>
+                                        <% if (averageAudioFeatures[feature] > 360000) { %>
+                                            you might have attachment issues.
+                                        <% } else if (averageAudioFeatures[feature] > 300000) { %>
+                                            only so many songs can pull of this length.
+                                        <% } else if (averageAudioFeatures[feature] > 240000) { %>
+                                            a little lengthy, but not always a bad thing.
+                                        <% } else if (averageAudioFeatures[feature] > 180000) { %>
+                                            the sweet spot. my personal preference.
+                                        <% } else if (averageAudioFeatures[feature] > 120000) { %>
+                                            reasonable length, but there's nothing wrong with a little more.
+                                        <% } else if (averageAudioFeatures[feature] > 60000) { %>
+                                            definitely on the shorter side. not a great attention span.
+                                        <% } else { %>
+                                            what do you even listen to? interludes?
+                                        <% } %>
+                                    </p>
+                                <% } else if (feature === "loudness") { %>
+                                    <div class="stat-card-text">
+                                        <h3><%= feature %></h3>
+                                        <div class="stat-card-body">
+                                            <%= averageAudioFeatures[feature].toFixed(1) %>dB
+                                        </div>
+                                    </div>
+                                    <p>
+                                        <% if (averageAudioFeatures[feature] > -5) { %>
+                                            one way to go deaf by 50!
+                                        <% } else if (averageAudioFeatures[feature] > -10) { %>
+                                            i would not want to be your neighbour.
+                                        <% } else if (averageAudioFeatures[feature] > -15) { %>
+                                            pretty moderate. that's probably the healthier decision.
+                                        <% } else if (averageAudioFeatures[feature] > -20) { %>
+                                            im guessing you aren't the biggest fan of clubs. i get that.
+                                        <% } else { %>
+                                            what do you even do when you listen to music? freeze in place?
+                                        <% } %>
+                                    </p>
+                                <% } else if (feature === "tempo") { %>
+                                    <div class="stat-card-text">
+                                        <h3><%= feature %></h3>
+                                        <div class="stat-card-body">
+                                            <%= Math.round(averageAudioFeatures[feature]) %>bpm
+                                        </div>
+                                    </div>
+                                    <p>
+                                    </p>
+                                <% } else { %>
+                                    <div class="stat-card-text">
+                                        <h3><%= feature %></h3>
+                                        <p>
+                                            <% switch(feature) {
+                                                case "danceability": %>
+                                                    is it made for dancing?
+                                                    <% break; %>
+                                                <% case "energy": %>
+                                                    energetic or dull?
+                                                    <% break; %>
+                                                <% case "loudness": %>
+                                                    loud or quiet?
+                                                    <% break; %>
+                                                <% case "mode": %>
+                                                    major or minor?
+                                                    <% break; %>
+                                                <% case "speechiness": %>
+                                                    words or music?
+                                                    <% break; %>
+                                                <% case "acousticness": %>
+                                                    acoustic or amplified?
+                                                    <% break; %>
+                                                <% case "instrumentalness": %>
+                                                    instrumental or vocal?
+                                                    <% break; %>
+                                                <% case "liveness": %>
+                                                    live or studio?
+                                                    <% break; %>
+                                                <% case "valence": %>
+                                                    positive or negative?
+                                                    <% break; %>
+                                                <% case "tempo": %>
+                                                    faster or slower?
+                                                    <% break; %>
+                                                <% case "duration_ms": %>
+                                                    longer or shorter?
+                                                    <% break;
+                                                }; %>
+                                        </p>
+                                        <div class="slider">
+                                            <input class="stat-range" type="range" disabled="true" min="0" max="100" value="<%= averageAudioFeatures[feature] * 100 %>">
+                                            <p><%= Math.round(averageAudioFeatures[feature] * 100)%> out of 100</p>
+                                        </div>
+                                        <div class="stat-card-body">
+                                            
+                                        </div>
+                                        <p>
+                                            <% switch (feature) {
+                                                case "danceability": 
+                                                    if (averageAudioFeatures[feature] > 0.8) { %>
+                                                        do you live in the club? you've probably got routines at this point.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.6) { %>
+                                                        you and the dance floor would be good friends.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.4) { %>
+                                                        you've probably danced in your room a few times. no judgement here.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.2) { %>
+                                                        im guessing you aren't the biggest fan of clubs. i get that.
+                                                    <% } else { %>
+                                                        what do you even do when you listen to music? freeze?
+                                                    <% } 
+                                                        break 
+                                                case "energy": 
+                                                    if (averageAudioFeatures[feature] > 0.8) { %>
+                                                        gosh. you may as well power a city.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.6) { %>
+                                                        where does all that energy come from...
+                                                    <% } else if (averageAudioFeatures[feature] > 0.4) { %>
+                                                        pretty neutral position. good to have a bit of both.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.2) { %>
+                                                        i get it. life can be stressful, and sometimes we need relaxation.
+                                                    <% } else { %>
+                                                        i'm not calling you boring, but damn.
+                                                    <% } %>
+                                                    <% break 
+                                                case "mode": %>
+                                                    <% if (averageAudioFeatures[feature] > 0.8) { %>
+                                                        a clear preference. i'd call it positive, but the music majors would come for me.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.6) { %>
+                                                        a little closer to the major side, but it's pretty minor.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.4) { %>
+                                                        well-balanced. loving the lack of discrimination.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.2) { %>
+                                                        leaning towards the minor side, nothing major.
+                                                    <% } else { %>
+                                                        you must love minor keys. can't be a coincidence. 
+                                                    <% } %>
+                                                    <% break 
+                                                case "speechiness": %>
+                                                    <% if (averageAudioFeatures[feature] > 0.66) { %>
+                                                        i've never met someone who uses spotify like this. have you heard of audible?
+                                                    <% } else if (averageAudioFeatures[feature] > 0.33) { %>
+                                                        pretty reasonable, you've probably got some rap in there.
+                                                    <% } else { %>
+                                                        not the most social person, i'm guessing.
+                                                    <% } %>
+                                                    <% break 
+                                                case "acousticness": %>
+                                                    <% if (averageAudioFeatures[feature] > 0.8) { %>
+                                                        i respect your loyalty to keeping it natural.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.6) { %>
+                                                        fair enough. can't hate a nice acoustic track.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.4) { %>
+                                                        a nice compromise. my kinda thing.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.2) { %>
+                                                        how modern. nothing wrong with some electronics.
+                                                    <% } else { %>
+                                                        give acoustic music a shot. your ears would probably thank you.
+                                                    <% } %>
+                                                    <% break 
+                                                case "instrumentalness": 
+                                                    if (averageAudioFeatures[feature] > 0.6) { %>
+                                                        it wouldn't hurt to have a few words in there.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.4) { %>
+                                                        not the biggest fan of vocals, are you?
+                                                    <% } else if (averageAudioFeatures[feature] > 0.2) { %>
+                                                        well, there's nothing wrong with an instrumental here and there.
+                                                    <% } else { %>
+                                                        i can't blame you. who doesn't love a carpool?
+                                                    <% } 
+                                                        break 
+                                                case "liveness":
+                                                    if (averageAudioFeatures[feature] > 0.8) { %>
+                                                        wow. you must really enjoy concerts.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.6) { %>
+                                                        that's a lot more live music than most people.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.4) { %>
+                                                        not the biggest fan of live recordings? fair enough.
+                                                    <% } else { %>
+                                                        someone is clearly not a fan of audiences.
+                                                    <% } 
+                                                        break
+                                                case "valence": 
+                                                    if (averageAudioFeatures[feature] > 0.8) { %>
+                                                        wow. you probably smile more than you blink.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.6) { %>
+                                                        i'm happy for you. (no i am not.)
+                                                    <% } else if (averageAudioFeatures[feature] > 0.4) { %>
+                                                        honestly, that's a pretty healthy balance, i'm impressed.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.3) { %>
+                                                        a little on the negative side, but we've all had our hearts broken.
+                                                    <% } else if (averageAudioFeatures[feature] > 0.2) { %>
+                                                        when you walk around, you probably have a tiny raincloud above you.
+                                                    <% } else { %>
+                                                        oh... who broke your heart? we can talk about it.
+                                                    <% } 
+                                                        break
+                                                } %>
+                                            </p>
+                                    </div>
+                                <% }; %>
+                            </div>
+                        <% }; %>
+                    <% }; %>
+                </div>
             </div>
         </div>
         <div id="description">
-            <p class="typed" id="desc-wait">anyway, one second...</p>
-            <p class="typed" id="desc-think">i think you'll like some of these tracks!</p>
+            <p class="typed" id="desc-wait">then, after you're done with those,</p>
+            <p class="typed" id="desc-think">i think you'll want to hear some of these tracks!</p>
         </div>
-    </main>
-    <div class="carousel-container swing-in-bottom-bck-container">
-        <button class="carousel-button carousel-prev-button">&lt;</button>
-        <button class="carousel-button carousel-next-button">&gt;</button>
-        <% recommendedTracksInfo.forEach(function(track) { %>
-        <div class="card carousel-card">
-            <img src="<%= track.cover %>" alt="track cover">
-            <div class="card-body">
-                <a class="card-title" href="<%= track.link %>" target="_blank"><%= track.name %></a>
-                <p class="card-text"><%= track.artist %></p>
+        <div class="carousel-container swing-in-bottom-bck-container">
+            <div>
+                <a id="playlist-button" href="/create-playlist">make this a playlist!</a>
             </div>
+            <button class="carousel-button carousel-prev-button">&lt;</button>
+            <button class="carousel-button carousel-next-button">&gt;</button>
+            <% recommendedTracksInfo.forEach(function(track) { %>
+            <div class="card carousel-card">
+                <img src="<%= track.cover %>" alt="track cover">
+                <div class="card-body">
+                    <a class="card-title" href="<%= track.link %>" target="_blank"><%= track.name %></a>
+                    <p class="card-text"><%= track.artist %></p>
+                </div>
+            </div>
+            <% }); %>
         </div>
-        <% }); %>
-    </div>
-
     </main>
     <script>
         var informationData = {
@@ -80,7 +269,7 @@
             artistIdsArray: "<%= artistIdsArray %>",
             trackNamesArray: "<%= trackNamesArray %>",
             artistNamesArray: "<%= artistNamesArray %>",
-            averageAudioFeatures: "<%= averageAudioFeatures %>",
+            averageAudioFeatures: `<%= averageAudioFeatures %>`,
             averageTrackPopularity: "<%= averageTrackPopularity %>",
             averageArtistPopularity: "<%= averageArtistPopularity %>",
             recommendedTracksInfo: `<%= JSON.stringify(recommendedTracksInfo) %>`,
