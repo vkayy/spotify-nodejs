@@ -39,28 +39,60 @@ let startX;
 let x;
 
 sliderContainerEl.addEventListener("mousedown", (e) => {
-    pressed = true;
-    startX = e.offsetX - statsSliderEl.offsetLeft;
-    sliderContainerEl.style.cursor = "grabbing";
+    startDrag(e.offsetX);
 });
+
+sliderContainerEl.addEventListener("touchstart", (e) => {
+    startDrag(e.touches[0].clientX);
+});
+
+
 
 sliderContainerEl.addEventListener("mouseenter", () => {
     sliderContainerEl.style.cursor = "grab";
 });
 
+
+
 sliderContainerEl.addEventListener("mouseup", () => {
-    sliderContainerEl.style.cursor = "grab";
-    pressed = false;
+    if (pressed) {
+        stopDrag();
+    };
+});
+
+sliderContainerEl.addEventListener("touchend", () => {
+    if (pressed) {
+        stopDrag();
+    };
 });
 
 sliderContainerEl.addEventListener("mousemove", (e) => {
     if (!pressed) return;
     e.preventDefault();
-    x = e.offsetX;
+})
 
+sliderContainerEl.addEventListener("touchmove", (e) => {
+    if (!pressed) return;
+    e.preventDefault();
+})
+
+
+function slideCarousel(clientX) {
+    x = clientX;
     statsSliderEl.style.left = `${x - startX}px`
     checkBoundary();
-})
+}
+
+function startDrag(initialX) {
+    pressed = true;
+    startX = initialX - statsSliderEl.offsetLeft;
+    sliderContainerEl.style.cursor = "grabbing";
+};
+
+const stopDrag = () => {
+    sliderContainerEl.style.cursor = "grab";
+    pressed = false;
+};
 
 const checkBoundary = () => {
     let outer = sliderContainerEl.getBoundingClientRect();
@@ -74,3 +106,4 @@ const checkBoundary = () => {
         statsSliderEl.style.left = `-${inner.width - outer.width}px`
     }
 };
+
