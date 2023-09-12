@@ -65,11 +65,13 @@ sliderContainerEl.addEventListener("touchend", () => {
 sliderContainerEl.addEventListener("mousemove", (e) => {
     if (!pressed) return;
     e.preventDefault();
+    slideCarousel(e.clientX);
 });
 
 sliderContainerEl.addEventListener("touchmove", (e) => {
     if (!pressed) return;
     e.preventDefault();
+    slideCarousel(e.clientX);
 });
 
 
