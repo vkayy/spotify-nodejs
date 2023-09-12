@@ -71,9 +71,8 @@ sliderContainerEl.addEventListener("mousemove", (e) => {
 sliderContainerEl.addEventListener("touchmove", (e) => {
     if (!pressed) return;
     e.preventDefault();
-    slideCarousel(e.clientX);
+    slideCarousel(e.touches[0].clientX);
 });
-
 
 function slideCarousel(clientX) {
     x = clientX;
