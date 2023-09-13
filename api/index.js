@@ -203,8 +203,6 @@ app.get("/information", async (req, res) => {
             }
         });
 
-        console.log("top tracks gotten");
-        
         const trackItems = topTracksResponse.data.items;
         const trackNamesArray = trackItems.map((item) => item.name);
         const trackIdsArray = trackItems.map((item) => item.id);
@@ -216,8 +214,6 @@ app.get("/information", async (req, res) => {
                 "Authorization": "Bearer " + access_token
             }
         });
-        
-        console.log("top artists gotten");
 
         const artistItems = topArtistsResponse.data.items;
         const artistNamesArray = artistItems.map((item) => item.name);
@@ -250,8 +246,6 @@ app.get("/information", async (req, res) => {
             }
         });
 
-        console.log("top tracks audio features gotten")
-
         const audio_features = topTracksAudioFeaturesResponse.data.audio_features;
 
         const desiredAudioFeatures = ["danceability", "energy", "key", "loudness", "mode", "speechiness",
@@ -279,10 +273,6 @@ app.get("/information", async (req, res) => {
             averageAudioFeatures[feature] /= audio_features.length;
          });
 
-         console.log(averageAudioFeatures);
-         console.log(artistIdsArray.slice(0, 3).join(","));
-         console.log(trackIdsArray.slice(0, 2).join(","));
-
          const songLimit = 100;
 
          const recommendationsQueryString = querystring.stringify({
@@ -301,15 +291,11 @@ app.get("/information", async (req, res) => {
             target_valence: averageAudioFeatures["valence"]
          });
 
-         console.log(recommendationsQueryString);
-
          const recommendationsResponse = await axios.get(recommendationsEndpoint + "?" + recommendationsQueryString, {
             headers: {
                 "Authorization": "Bearer " + access_token
             }
          });
-
-         console.log("top recommendations gotten");
 
          const recommendedTracks = recommendationsResponse.data.tracks;
          recommendedTracksUris = recommendedTracks.map((track) => track.uri);
@@ -359,53 +345,29 @@ app.get("/create-playlist", async (req, res) => {
         });
         const playlist_id = playlistCreateResponse.data.id;
 
-        console.log(recommendedTracksUris);
-
         let coversBase64 = [];
 
         const coversPath = path.join(__dirname, "..", "images", "covers");
-        console.log("here is covers path");
-        console.log(coversPath)
 
         fs.readdir(coversPath, async (err, files) => {
             try {
-                if (err) {
-                    console.error("Error reading covers directory: ", err);
-                    return;
-                };
-                console.log("made it past the if statement")
                 let i = 0;
                 files.forEach((file) => {
                     const filePath = path.join(coversPath, file)
-                    console.log(filePath)
                     const fileBuffer = fs.readFileSync(filePath);
                     const base64fileBuffer = fileBuffer.toString("base64");
                     coversBase64[i] = base64fileBuffer;
                     i++;
                 });
-    
-                console.log("made it past the fs.readdir, here is coversbase64")
-    
-                console.log(coversBase64);
-    
-                const randomImageNumber = Math.floor(Math.random() * coversBase64.length);
-                console.log("random image number: ");
-                console.log(randomImageNumber)
-                console.log(coversBase64.length)
-    
-                console.log("made it past the random number generator")
 
-                console.log(coversBase64[randomImageNumber])
-    
+                const randomImageNumber = Math.round(Math.random() * coversBase64.length);
+
                 const playlistCoverResponse = await axios.put(`https://api.spotify.com/v1/playlists/${playlist_id}/images`, coversBase64[randomImageNumber], {
                     headers: {
                         "Authorization": "Bearer " + access_token,
                         "Content-Type": "image/jpeg"
                     }
                 });
-    
-                console.log("made it past the image mod")
-    
     
                 const addData = {
                     uris: recommendedTracksUris
