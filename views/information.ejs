@@ -59,20 +59,20 @@
                                         <div class="stat-card-body">
                                             <%= averageAudioFeatures[feature].toFixed(1) %>dB
                                         </div>
+                                        <p>
+                                            <% if (averageAudioFeatures[feature] > -5) { %>
+                                                one way to go deaf by 50!
+                                            <% } else if (averageAudioFeatures[feature] > -10) { %>
+                                                i would not want to be your neighbour.
+                                            <% } else if (averageAudioFeatures[feature] > -15) { %>
+                                                pretty moderate. that's probably the healthier decision.
+                                            <% } else if (averageAudioFeatures[feature] > -20) { %>
+                                                your ears must be thanking you.
+                                            <% } else { %>
+                                                can you even hear your music..?
+                                            <% } %>
+                                        </p>
                                     </div>
-                                    <p>
-                                        <% if (averageAudioFeatures[feature] > -5) { %>
-                                            one way to go deaf by 50!
-                                        <% } else if (averageAudioFeatures[feature] > -10) { %>
-                                            i would not want to be your neighbour.
-                                        <% } else if (averageAudioFeatures[feature] > -15) { %>
-                                            pretty moderate. that's probably the healthier decision.
-                                        <% } else if (averageAudioFeatures[feature] > -20) { %>
-                                            im guessing you aren't the biggest fan of clubs. i get that.
-                                        <% } else { %>
-                                            what do you even do when you listen to music? freeze in place?
-                                        <% } %>
-                                    </p>
                                 <% } else { %>
                                     <div class="stat-card-text">
                                         <h3><%= feature %></h3>

@@ -31,75 +31,85 @@ showCard(cardIndex);
 previousBtnEl.addEventListener("click", previousSlide);
 nextBtnEl.addEventListener("click", nextSlide);
 
-let sliderContainerEl = document.querySelector(".slider-container");
-let statsSliderEl = document.querySelector(".stats-slider");
-
-let pressed = false;
-let startX;
-let x;
-
-sliderContainerEl.addEventListener("mousedown", (e) => {
-    startDrag(e.offsetX);
+var mediaQuery = window.matchMedia("(max-width: 1000px)");
+mediaFunction(mediaQuery);
+mediaQuery.addEventListener("change", () => {
+    mediaFunction(mediaQuery);
 });
 
-sliderContainerEl.addEventListener("touchstart", (e) => {
-    startDrag(e.touches[0].clientX);
-});
+function mediaFunction(mediaQuery) {
+    if (mediaQuery.matches) {
+        let sliderContainerEl = document.querySelector(".slider-container");
+        let statsSliderEl = document.querySelector(".stats-slider");
 
-sliderContainerEl.addEventListener("mouseenter", () => {
-    sliderContainerEl.style.cursor = "grab";
-});
+        let pressed = false;
+        let startX;
+        let x;
 
-sliderContainerEl.addEventListener("mouseup", () => {
-    if (pressed) {
-        stopDrag();
+        sliderContainerEl.addEventListener("mousedown", (e) => {
+            startDrag(e.offsetX);
+        });
+
+        sliderContainerEl.addEventListener("touchstart", (e) => {
+            startDrag(e.touches[0].clientX);
+        });
+
+        sliderContainerEl.addEventListener("mouseenter", () => {
+            sliderContainerEl.style.cursor = "grab";
+        });
+
+        sliderContainerEl.addEventListener("mouseup", () => {
+            if (pressed) {
+                stopDrag();
+            };
+        });
+
+        sliderContainerEl.addEventListener("touchend", () => {
+            if (pressed) {
+                stopDrag();
+            };
+        });
+
+        sliderContainerEl.addEventListener("mousemove", (e) => {
+            if (!pressed) return;
+            e.preventDefault();
+            slideCarousel(e.clientX);
+        });
+
+        sliderContainerEl.addEventListener("touchmove", (e) => {
+            if (!pressed) return;
+            e.preventDefault();
+            slideCarousel(e.touches[0].clientX);
+        });
+
+        function slideCarousel(clientX) {
+            x = clientX;
+            statsSliderEl.style.left = `${x - startX}px`
+            checkBoundary();
+        };
+
+        function startDrag(initialX) {
+            pressed = true;
+            startX = initialX - statsSliderEl.offsetLeft;
+            sliderContainerEl.style.cursor = "grabbing";
+        };
+
+        const stopDrag = () => {
+            sliderContainerEl.style.cursor = "grab";
+            pressed = false;
+        };
+
+        const checkBoundary = () => {
+            let outer = sliderContainerEl.getBoundingClientRect();
+            let inner = statsSliderEl.getBoundingClientRect();
+
+            if (parseInt(statsSliderEl.style.left) > 0) {
+                statsSliderEl.style.left = "0px";
+            };
+
+            if (inner.right < outer.right) {
+                statsSliderEl.style.left = `-${inner.width - outer.width}px`
+            };
+        };
     };
-});
-
-sliderContainerEl.addEventListener("touchend", () => {
-    if (pressed) {
-        stopDrag();
-    };
-});
-
-sliderContainerEl.addEventListener("mousemove", (e) => {
-    if (!pressed) return;
-    e.preventDefault();
-    slideCarousel(e.clientX);
-});
-
-sliderContainerEl.addEventListener("touchmove", (e) => {
-    if (!pressed) return;
-    e.preventDefault();
-    slideCarousel(e.touches[0].clientX);
-});
-
-function slideCarousel(clientX) {
-    x = clientX;
-    statsSliderEl.style.left = `${x - startX}px`
-    checkBoundary();
-};
-
-function startDrag(initialX) {
-    pressed = true;
-    startX = initialX - statsSliderEl.offsetLeft;
-    sliderContainerEl.style.cursor = "grabbing";
-};
-
-const stopDrag = () => {
-    sliderContainerEl.style.cursor = "grab";
-    pressed = false;
-};
-
-const checkBoundary = () => {
-    let outer = sliderContainerEl.getBoundingClientRect();
-    let inner = statsSliderEl.getBoundingClientRect();
-
-    if (parseInt(statsSliderEl.style.left) > 0) {
-        statsSliderEl.style.left = "0px";
-    }
-
-    if (inner.right < outer.right) {
-        statsSliderEl.style.left = `-${inner.width - outer.width}px`
-    }
 };
