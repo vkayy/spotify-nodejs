@@ -31,14 +31,14 @@ showCard(cardIndex);
 previousBtnEl.addEventListener("click", previousSlide);
 nextBtnEl.addEventListener("click", nextSlide);
 
-var mediaQuery = window.matchMedia("(max-width: 1000px)");
-mediaFunction(mediaQuery);
-mediaQuery.addEventListener("change", () => {
-    mediaFunction(mediaQuery);
-});
+// var mediaQuery = window.matchMedia("(max-width: 1000px)");
+// mediaFunction(mediaQuery);
+// mediaQuery.addEventListener("change", () => {
+//     mediaFunction(mediaQuery);
+// });
 
-function mediaFunction(mediaQuery) {
-    if (mediaQuery.matches) {
+// function mediaFunction(mediaQuery) {
+//     if (mediaQuery.matches) {
         let sliderContainerEl = document.querySelector(".slider-container");
         let statsSliderEl = document.querySelector(".stats-slider");
 
@@ -111,5 +111,5 @@ function mediaFunction(mediaQuery) {
                 statsSliderEl.style.left = `-${inner.width - outer.width}px`
             };
         };
-    };
-};
+    // };
+// };

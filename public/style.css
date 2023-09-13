@@ -236,6 +236,48 @@ footer p, footer h4 {
     width: 100%;
 }
 
+.slider-container {
+    width: 100%;
+    height: 330px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px auto;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.stats-slider {
+    margin: 30px 0 20px;
+    width: 3340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-basis: 1;
+    pointer-events: none;
+    position: absolute;
+    padding: 20px;
+    flex-wrap: wrap;
+    left: 0;
+    overflow: hidden;
+}
+
+.stat-card {
+    width: 300px;
+    height: auto;
+    padding: 10px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 10px var(--shadow-color);
+    border-radius: 10%;
+    transition: all 1s ease;
+}
+
 .stat-card:hover {
     transform: translatey(-5px) scale(1.1);
 }
@@ -495,52 +537,6 @@ vibrate-3 {
     }
 }
 
-@media only screen and (min-width: 1001px) {
-
-    .slider-container {
-        width: 100%;
-        height: 330px;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px auto;
-        margin-top: 20px;
-        overflow: hidden;
-    }
-
-    .stats-slider {
-        margin: 30px 0 20px;
-        width: 3340px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 30px;
-        flex-basis: 1;
-        pointer-events: none;
-        position: absolute;
-        padding: 20px;
-        flex-wrap: wrap;
-        left: 0;
-        overflow: hidden;
-    }
-
-    .stat-card {
-        width: 300px;
-        height: auto;
-        padding: 10px;
-        margin: 20px auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 5px 10px var(--shadow-color);
-        border-radius: 10%;
-        transition: all 1s ease;
-        scroll-snap-align: center;
-    }
-}
-
 @media only screen and (max-width: 1000px) {
 
     header h1 {
@@ -568,7 +564,7 @@ vibrate-3 {
         width: 30vw;
     }
 
-    .slider-container {
+    /* .slider-container {
         overflow-x: auto; 
         overflow-y: hidden;
         justify-content: start;
@@ -597,7 +593,7 @@ vibrate-3 {
         transition: all 1s ease;
         position: relative;
         scroll-snap-align: center;
-    }
+    } */
     
 
     .carousel-card {
