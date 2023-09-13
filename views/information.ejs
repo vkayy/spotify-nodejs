@@ -24,7 +24,7 @@
             <div class="slider-container slide-in-bottom">
                 <div class="stats-slider">
                     <% for (const feature in averageAudioFeatures) { %>
-                        <% if (feature != "key") { %>
+                        <% if (feature != "key" && feature != "tempo") { %>
                             <div class="stat-card" id="<%= feature %>">
                                 <% if (feature === "duration_ms") { %>
                                     <div class="stat-card-text">
@@ -72,15 +72,6 @@
                                         <% } else { %>
                                             what do you even do when you listen to music? freeze in place?
                                         <% } %>
-                                    </p>
-                                <% } else if (feature === "tempo") { %>
-                                    <div class="stat-card-text">
-                                        <h3><%= feature %></h3>
-                                        <div class="stat-card-body">
-                                            <%= Math.round(averageAudioFeatures[feature]) %>bpm
-                                        </div>
-                                    </div>
-                                    <p>
                                     </p>
                                 <% } else { %>
                                     <div class="stat-card-text">

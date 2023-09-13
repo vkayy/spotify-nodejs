@@ -249,7 +249,7 @@ footer p, footer h4 {
 
 .stats-slider {
     margin: 30px 0 20px;
-    width: 3740px;
+    width: 3340px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -259,6 +259,7 @@ footer p, footer h4 {
     position: absolute;
     padding: 20px;
     flex-wrap: wrap;
+    left: 0;
 }
 
 .stat-card {

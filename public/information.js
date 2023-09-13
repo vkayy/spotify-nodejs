@@ -103,4 +103,3 @@ const checkBoundary = () => {
         statsSliderEl.style.left = `-${inner.width - outer.width}px`
     }
 };
-
