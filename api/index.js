@@ -307,7 +307,13 @@ app.get("/information", async (req, res) => {
             cover: track.album.images[0].url
          }));
 
-        res.render("information", {userID: id, displayName: display_name, userImage: (images[1].url || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"), trackIdsArray,
+         if (images[1]) {
+            const userImage = images[1].url
+         } else {
+            const userImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
+         }
+
+        res.render("information", {userID: id, displayName: display_name, userImage, trackIdsArray,
              artistIdsArray, trackNamesArray, artistNamesArray, averageAudioFeatures, averageTrackPopularity, averageArtistPopularity, recommendedTracksInfo, songLimit})
         // rendering the ejs template with the corresponding values
     } catch (error) {
