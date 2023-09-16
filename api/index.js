@@ -307,11 +307,13 @@ app.get("/information", async (req, res) => {
             cover: track.album.images[0].url
          }));
 
+         let userImage;
+
          if (images[1]) {
-            const userImage = images[1].url
+            userImage = images[1].url;
          } else {
-            const userImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
-         }
+            userImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png";
+         };
 
         res.render("information", {userID: id, displayName: display_name, userImage, trackIdsArray,
              artistIdsArray, trackNamesArray, artistNamesArray, averageAudioFeatures, averageTrackPopularity, averageArtistPopularity, recommendedTracksInfo, songLimit})
