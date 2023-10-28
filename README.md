@@ -4,7 +4,7 @@ this web app analyses your listening based on patterns in musical features, extr
 
 note that to use the app, you have to be manually verified by myself, due to spotify's developer policy.
 
-in future, i plan to remake this with modernised frontend technology, i.e., react, next.js, etc..
+in future, i plan to remake this with modernised frontend technology, i.e., react, next.js, etc.. then, i will apply to have the app launched officially for universal access under spotify's developer policy.
 
 ## languages, frameworks and libraries used
 
