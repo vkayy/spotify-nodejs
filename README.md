@@ -20,4 +20,4 @@ in future, i plan to remake this with modernised frontend technology, i.e., reac
 
 i love listening to music; i spend the majority of my day with a song playing. furthermore, seeking patterns and drawing predictions is another interest of mine.
 
-so, i killed two birds with one stone, twisting both into one project. also, this was a fun way to familiarise myself with working with external APIs, and also designing my own RESTful API.
+so, i killed two birds with one stone, weaving both together in one project. also, this was a fun way to familiarise myself with working with external APIs, and also designing my own RESTful API.
