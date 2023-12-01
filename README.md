@@ -1,5 +1,7 @@
 # recommended by vkay
 
+https://recommended-by-vkay.onrender.com/
+
 this web app analyses your listening based on patterns in musical features, extracted using the spotify api. moreover, based on the analysis, it curates a playlist of 100 songs which can automatically be added to your profile.
 
 in future, i plan to remake this with a more modern frontend infrastructure and potentially apply to have the app launched officially for universal access under spotify's developer policy.
