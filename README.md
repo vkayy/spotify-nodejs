@@ -12,7 +12,7 @@ if you are verified, then the usage is straightforward. click the button on the 
 
 after authenticating the web app to access your listening data, you'll be met with a carousel describing your quantified listening patterns, including loudness, wordiness, and other features.
 
-then, an array of a hundred songs will be collated, which can be cycled through using the forward and back buttons.
+then, an array of 100 songs will be collated, which can be cycled through using the forward and back buttons.
 
 lastly, if you're interested in the songs, you can click on the playlist generation button to automatically add the playlist to your spotify account.
 
